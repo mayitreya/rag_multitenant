@@ -100,7 +100,7 @@ flowchart TD
     K --> G
 ```
 
-\clearpage \clearpage
+
 
 ## More About Routing
 Routing was therefore the easiest way that I could think of to let the chatbot identify the industry itself, rather than letting the user pick a company upfront. When a user asks a question, the `detect_company()` function is first run, which runs the user's question against this system prompt:
@@ -123,7 +123,7 @@ Routing was therefore the easiest way that I could think of to let the chatbot i
 
 That confidence score is what makes the routing trustworthy rather than a coin flip. When the router is unsure about which industry a question comes from, it can then ask the user which company they meant, rather than guess and cause a hallucinated answer. New industries can even be added just by adding a CSV to the `data/` directory and adding the name of the industry to `config.json`.
 
-\clearpage \clearpage
+
 
 ## Retrieval
 Once the company is settled by the router, the chatbot connects to that company's collection only and asks for the five most relevant chunks using this code:
@@ -132,12 +132,12 @@ Once the company is settled by the router, the chatbot connects to that company'
 
 This is the "top k" idea from my brainstorming section. Rather than stuffing all 50 of an industry's FAQs into the prompt, the vector search surfaces just the handful semantically closest to the question.
 
-\clearpage \clearpage
+
 
 ## Generation
 Now the bot has the five most relevant FAQ chunks. The final step is turning them into a written answer. This happens in three parts: I build the context, I hand it to the model with strict instructions, and the model produces an answer followed by its sources.
 
-\clearpage \clearpage
+
 
 ### Building the Context
 I don't feed the model the raw embedded text. Instead, I rebuild each chunk from the metadata I saved during ingestion (its exact ID, question, and answer) into a clean, labeled block:
@@ -172,7 +172,7 @@ After its answer, the bot lists the sources it used, quoting each FAQ verbatim i
 
 Since these citations come straight from the metadata (step 1), a cited ID always points to a real FAQ entry and the model can't invent a source. Finally, the whole response is streamed to the terminal.
 
-\clearpage \clearpage
+
 
 # Ensuring Determinism
 One of the assignment's explicit requirements is that the same question should reliably produce the same answer, with no hallucination outside the FAQ scope.
@@ -218,7 +218,7 @@ One of the assignment's explicit requirements is that the same question should r
     )
 ```
 
-\clearpage \clearpage
+
 
 # Tools I Used
 An ambitious design decision that I made for this assignment was to run everything locally if possible. This is a customer support platform that could handle sensitive data, so to me it makes sense to run this locally. As a bonus, it also makes the project completely reproducible, entirely configurable, and free to host without API costs or rate limits.
@@ -237,7 +237,7 @@ An ambitious design decision that I made for this assignment was to run everythi
     * Putting it all together
     * LangChain provides abstractions for ChromaDB and Ollama so it results in incredibly clean code, simply by using APIs provided by LangChain, rather than using separate ChromaDB and Ollama specific APIs, making the code slightly harder to read
 
-\clearpage \clearpage
+
 
 # UI
 The assignment lists a UI as a bonus rather than a requirement, so I spent more time on the functionality of the application rather than making it look prettier. I built a command line interface instead. The main pipeline goes like this:
@@ -261,7 +261,7 @@ The assignment lists a UI as a bonus rather than a requirement, so I spent more 
 
 The next logical step would be to make this a front-end and user-friendly tool using Gradio, Streamlit, or even something entirely custom.
 
-\clearpage \clearpage
+
 
 # How to Run This Code
 This code was tested on Linux. It should run on macOS and Windows, although those haven't been tested.
