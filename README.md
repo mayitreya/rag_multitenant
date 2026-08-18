@@ -40,7 +40,7 @@ It was a simple prompt:
 
 And here's what the AI responded with:
 
-![*Prompt and the output/code execution on the left, preview of the CSV on the right*](assets/image-1787021205737.png)
+![*Prompt and the output/code execution on the left, preview of the CSV on the right*](image-1787021205737.png)
 
 So I used the same prompt for the rest of the nine industries, and ended up with these CSV files:
 
