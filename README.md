@@ -1,10 +1,3 @@
----
-title: RAG Chatbot Assignment
-author: Mayitreya Pasumarthy
----
-
-\clearpage \clearpage
-
 # An Overview of the Assignment
 This project focuses on building a shared RAG (Retrieval Augmented Generation) chatbot platform that serves customer support FAQs for multiple companies across diverse industries. The system needs to:
 
@@ -12,8 +5,6 @@ This project focuses on building a shared RAG (Retrieval Augmented Generation) c
 2. Retrieve the relevant FAQ content (without being cross contaminated by the other industries' content)
 3. Generate an answer that's accurate to the identified industry
     * If the chatbot doesn't know the answer to the query, or cannot find something within the industry's FAQ, it should respond with an "I don't know" or something similar
-
-\clearpage \clearpage
 
 # Brainstorming the Assignment
 Immediately, I started mapping out the flow of the service.
@@ -39,8 +30,6 @@ This seemed like a good starting point to me. But, a few questions came to mind:
 5. To me, running this service 100% locally would be wonderful. Can I do that?
 
 All of these seem like interesting questions, but at this point, I was getting a bit ahead of myself. Let's take this one step at a time and explore the easiest tasks first.
-
-\clearpage \clearpage
 
 # Sourcing the Data
 I decided that 50 questions per industry would be sufficient for this assignment. I used an AI chatbot to generate 10 different CSV files with 50 questions each for the corresponding industry. For instance, 50 questions in Ecommerce, 50 questions in SaaS, and so forth.
@@ -69,8 +58,6 @@ So I used the same prompt for the rest of the nine industries, and ended up with
     healthcare_provider_faqs.csv
 ```
 
-\clearpage \clearpage
-
 # Ingestion and Embedding
 Now comes one of the harder tasks of the assignment: ingesting the CSVs and efficiently giving them to the chatbot as context (so as to not overload the context of the chatbot and cause hallucinations). Basically, this section aims to answer the question raised above:
 
@@ -84,8 +71,6 @@ I ended up choosing ChromaDB as the vector store, since it's lightweight, allows
 4. Alongside each chunk, I store metadata: the source file, the original doc ID, and the verbatim question and answer text. This is what lets the bot later cite the exact FAQ entry it drew from, word for word, instead of reconstructing it from memory.
 
 The main design decision here was that each industry lives in its own collection, so when the bot answers a banking question, it queries the banking collection directly, and cannot see any other data from any other industry. It is structurally impossible for data cross-contamination.
-
-\clearpage \clearpage
 
 # Retrieval and Generation
 This is where the two questions I raised while brainstorming finally get answered:
@@ -283,7 +268,7 @@ This code was tested on Linux. It should run on macOS and Windows, although thos
 
 ## Requirements
 1. Ollama
-2. Qwen 3.5 9B (or some other LLM)
+2. Qwen 3.5 9B (or some other LLM) + Nomic Embed Text
 3. Python 3.10
 
 Python requirements are listed in `requirements.txt` and a virtual environment using Python 3.10 can be made using those requirements. 
@@ -294,9 +279,11 @@ From the Ollama website, installing Ollama is a one-liner:
 > `curl -fsSL https://ollama.com/install.sh | sh`
 
 ## Pulling the Model
-Once Ollama has been installed, the model needs to be pulled:
+Once Ollama has been installed, the models need to be pulled:
 
 > `ollama pull qwen3.5:9b`
+
+> `ollama pull nomic-embed-text:latest`
 
 ## Setting up the Python Virtual Environment
 A virtual environment using Python 3.10 should be made:
