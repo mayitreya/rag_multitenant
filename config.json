@@ -1,0 +1,16 @@
+{
+    "app_name": "Multi-Tenant RAG Chatbot",
+    "default_model": "qwen3.5:9b",
+    "companies": [
+        "Airline", 
+        "Banking", 
+        "Ecommerce", 
+        "Food Delivery", 
+        "Insurance", 
+        "Online Education Platform", 
+        "Real Estate", 
+        "SaaS", 
+        "Telecom", 
+        "Healthcare Provider"
+    ]
+}

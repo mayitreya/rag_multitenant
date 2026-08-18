@@ -1,0 +1,65 @@
+Take-Home Assignment: Multi-Tenant RAG FAQ Chatbot
+Background / Use Case
+You're building a shared RAG (Retrieval-Augmented Generation) chatbot platform that serves customer support FAQs for 10 different companies, each from a different industry:
+
+E-commerce (order tracking, returns, refunds)
+SaaS product (billing, account, feature questions)
+Telecom (plans, billing, outage support)
+Banking (account types, fees, card issues)
+Insurance (policy terms, claims process)
+Airline (booking, baggage, cancellation policy)
+Healthcare provider (appointments, insurance coverage, portal access)
+Online education platform (courses, certificates, refunds)
+Food delivery (orders, delivery issues, refunds)
+Real estate platform (listings, agent contact, fees)
+Each company provides its own FAQ document (you can source/curate 20–40 Q&A pairs per company, or generate synthetic ones). A user asks a question; the system must:
+
+Identify which company's context the question belongs to (or accept it as a parameter)
+Retrieve only the relevant company's FAQ content — no cross-company contamination
+Generate an answer that is grounded in the retrieved FAQ, not hallucinated
+Explicitly say "I don't know" / escalate when the answer isn't in the FAQ set, rather than guessing
+Core Requirements
+Ingestion & Embedding
+
+Chunk and embed all 10 companies' FAQ sets
+Store embeddings in a vector store, keeping per-company isolation (separate collections/namespaces, or metadata filtering — candidate's choice)
+Retrieval + Generation (RAG)
+
+Given a query (+ company identifier), retrieve top-k relevant chunks
+Generate a final answer grounded in retrieved context
+Cite which FAQ entry the answer came from
+Determinism / Accuracy
+
+Answers must be consistent for the same query (low/no randomness in generation where possible)
+No hallucinated answers outside the provided FAQ scope — must have a defined fallback behavior
+Include a small evaluation set (10–15 test questions across companies, including a few "trick" questions with no good answer) and show actual results
+Tooling — fully open choice
+
+LangChain, LangGraph, LlamaIndex, raw Python + any vector DB (FAISS, Chroma, Qdrant, Weaviate, pgvector, etc.), any embedding model (OpenAI, local/HF models, etc.)
+Justify your stack choice briefly in the README
+UI — optional, bonus points
+
+Not required, but a simple chat UI (Streamlit, Gradio, or a basic web front-end) will earn extra credit
+Explicitly tell candidates this is a bonus, not a baseline requirement
+Deliverables
+Source code (repo or zip)
+README covering: architecture, tool/stack choices and why, how multi-tenancy/isolation is handled, how hallucination is prevented, how to run it
+FAQ datasets used (or a script to generate them)
+Evaluation results (test queries + answers + pass/fail notes)
+(Bonus) UI demo — screenshot, GIF, or live link
+Evaluation Criteria
+Area
+What to look for
+Retrieval accuracy
+Right chunks pulled for the right company
+Grounding / hallucination control
+Answers traceable to source FAQ; graceful "don't know" fallback
+Multi-tenant design
+Clean isolation between companies' data
+Code quality
+Structure, readability, error handling
+Documentation
+Clear README, reasoning behind choices
+UI (bonus)
+Usability, polish — not required for full marks
+Suggested time budget: 3–5 days. Encourage candidates to timebox and prioritize correctness/grounding over polish.
